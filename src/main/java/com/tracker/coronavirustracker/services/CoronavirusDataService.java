@@ -2,6 +2,7 @@ package com.tracker.coronavirustracker.services;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -21,7 +22,10 @@ public class CoronavirusDataService {
             "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
 
     //fetch the data and get a response.If "client.send" fails, throw exceptions.
-    @PostConstruct //assures method will always execute upon project startup
+    //this annotation assures method will always execute upon project startup
+    @PostConstruct
+    //help update the data in real-time(format = s, m, h, dd, MM, yyyy..scheduled to run every minute)
+    @Scheduled(cron = " * * * * *")
     public void fetchVirusData() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
 
@@ -32,19 +36,13 @@ public class CoronavirusDataService {
         HttpResponse<String> httpResponse =
                 client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        System.out.println(httpResponse.body());
 
         StringReader csvBodyReader = new StringReader(httpResponse.body());
-        Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(csvBodyReader);
+        Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(csvBodyReader);
 
         for(CSVRecord record :records) {
             String state = record.get("Province/State");
             System.out.println(state);
         }
-
     }
-
-
-
-
 }
