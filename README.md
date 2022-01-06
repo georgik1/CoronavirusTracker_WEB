@@ -4,3 +4,4 @@ A simple real-time tracker for the coronavirus disease
 ## :hammer: Used technologies :hammer:
 *   [☕ Java ☕]
 *   [🍃 Spring boot 🍃] 
+*   [🟧HTML5🟧] 
