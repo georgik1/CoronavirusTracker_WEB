@@ -35,9 +35,9 @@ public class LocationStats {
     public String toString() {
         return String.format("Location statistics:%n" +
                 "{ %n" +
-                "state = %s %n" +
-                "country = %s %n" +
-                "latest total cases = %d %n" +
+                "State = %s %n" +
+                "Country = %s %n" +
+                "Latest total cases = %d %n" +
                 "}%n",state, country, latestTotalCases);
     }
 }

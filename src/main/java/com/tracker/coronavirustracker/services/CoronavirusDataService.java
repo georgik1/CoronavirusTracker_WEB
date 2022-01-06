@@ -24,14 +24,14 @@ public class CoronavirusDataService {
     private static String VIRUS_DATA_URL =
             "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
     //create instances of the stats and populate the list
-    private List<LocationStats> stats = new ArrayList<>();
+    private List<LocationStats> allStats = new ArrayList<>();
 
 
     //fetch the data and get a response.If "client.send" fails, throw exceptions.
     //this annotation assures method will always execute upon project startup
     @PostConstruct
-    //help update the data in real-time(format = s, m, h, dd, MM, yyyy..scheduled to run every minute)
-    @Scheduled(cron = " * * * * *")
+    //help update the data in real-time(format = s, m, h, dd, MM, yyyy..scheduled to run once every day)
+    @Scheduled(cron = " * * 1 * * *")
     public void fetchVirusData() throws IOException, InterruptedException {
 
         List<LocationStats> newStats = new ArrayList<>();
@@ -56,6 +56,6 @@ public class CoronavirusDataService {
             System.out.println(locationStat);
             newStats.add(locationStat);
         }
-        this.stats = newStats;
+        this.allStats = newStats;
     }
 }
