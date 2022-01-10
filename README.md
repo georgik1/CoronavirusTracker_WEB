@@ -5,3 +5,4 @@ A simple real-time tracker for the coronavirus disease
 *   [☕ Java ☕]
 *   [🍃 Spring boot 🍃] 
 *   [🟧HTML5🟧] 
+*   [🟦Bootstrap🟦] 
